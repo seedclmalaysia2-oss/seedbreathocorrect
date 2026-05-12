@@ -43,14 +43,10 @@ app/
   contact/                   Lead form (Resend) + regional offices
   privacy-policy/            Placeholder privacy policy
   api/revalidate/route.ts    Sanity webhook -> revalidateTag
-  studio/[[...tool]]/        Sanity Studio mounted in-app
   sitemap.ts, robots.ts      SEO
 sanity/
   env.ts                     Reads Sanity env vars
   lib/                       client, queries, image URL, safe fetch
-  schemas/                   siteSettings, page, feature, faqItem,
-                             testimonial, office, videoLesson, fittingGuide
-sanity.config.ts             Studio config
 components/                  SiteHeader, SiteFooter, Section,
                              FeatureCard, InfoPage, ui/* (shadcn)
 lib/                         nav links, seed content, contact schema (Zod),
@@ -65,6 +61,10 @@ lib/                         nav links, seed content, contact schema (Zod),
 | `npm run build` | Production build |
 | `npm run start` | Run the production build locally |
 | `npm run lint` | ESLint |
+
+## Sanity Studio (separate repo)
+
+Schemas and the editor UI live in a **standalone Studio** at `../studio-seed-breathocorrect/`. That project is what editors run with `npm run dev` and deploy to `*.sanity.studio` with `npm run deploy`. This Next.js app only *reads* from Sanity via `sanity/lib/`.
 
 ## Notes
 
