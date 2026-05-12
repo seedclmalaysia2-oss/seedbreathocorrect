@@ -66,6 +66,17 @@ lib/                         nav links, seed content, contact schema (Zod),
 
 Schemas and the editor UI live in a **standalone Studio** at `../studio-seed-breathocorrect/`. That project is what editors run with `npm run dev` and deploy to `*.sanity.studio` with `npm run deploy`. This Next.js app only *reads* from Sanity via `sanity/lib/`.
 
+## Deploy (Netlify)
+
+This repo is configured for Netlify via [netlify.toml](netlify.toml). To deploy:
+
+1. https://app.netlify.com/start -> Import from GitHub -> pick this repo
+2. Build settings are auto-detected from `netlify.toml`
+3. Add the environment variables listed above under **Site settings -> Environment variables**
+4. Click **Deploy**
+
+The Netlify Next.js runtime is auto-installed during the first build, so no extra plugin configuration is required.
+
 ## Notes
 
 - The CMS-driven data layer is wired (`sanity/lib/fetch.ts` calls `sanity/lib/queries.ts`); the marketing pages currently use seed content in `lib/seed-content.ts` so the site is usable without a Sanity project. Swap in `sanityFetch(...)` once a project is provisioned.
