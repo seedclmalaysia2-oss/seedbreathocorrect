@@ -7,6 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
@@ -49,6 +53,7 @@
 }
 
 :root {
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -81,6 +86,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Brand: deep navy + warm gold, used by the new homepage and chrome. */
+  --navy: oklch(0.275 0.075 264);
+  --navy-foreground: oklch(0.985 0 0);
+  --gold: oklch(0.685 0.105 75);
+  --gold-foreground: oklch(0.985 0 0);
 }
 
 .dark {
@@ -126,5 +137,44 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .navy-gradient {
+    background: linear-gradient(
+      135deg,
+      oklch(0.34 0.075 264) 0%,
+      oklch(0.245 0.07 264) 55%,
+      oklch(0.185 0.065 268) 100%
+    );
+  }
+  .gold-gradient {
+    background: linear-gradient(
+      135deg,
+      oklch(0.78 0.1 78) 0%,
+      oklch(0.68 0.11 72) 55%,
+      oklch(0.55 0.1 66) 100%
+    );
+  }
+  .reveal-on-mount {
+    animation: reveal-on-mount 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .reveal-on-mount-delay-1 { animation-delay: 0.1s; }
+  .reveal-on-mount-delay-2 { animation-delay: 0.2s; }
+  .reveal-on-mount-delay-3 { animation-delay: 0.3s; }
+  .reveal-on-mount-delay-4 { animation-delay: 0.45s; }
+  .reveal-on-mount-delay-5 { animation-delay: 0.6s; }
+
+  @keyframes reveal-on-mount {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

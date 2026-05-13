@@ -35,3 +35,36 @@ export const fittingGuideQuery = groq`*[_type == "fittingGuide" && lensType == $
 export const pageBySlugQuery = groq`*[_type == "page" && slug.current == $slug][0]{
   title, body, seo
 }`;
+
+// Mirrors the shape of HomepageContent in lib/homepage-content.ts.
+// The matching `homepage` document (singleton) can be added to the
+// standalone Sanity Studio repo; until then sanityFetch returns the fallback.
+export const homepageQuery = groq`*[_type == "homepage"][0]{
+  hero{
+    badge, titleTop, titleSub, description,
+    primaryCta{ label, href },
+    secondaryCta{ label, href },
+    stats[]{ value, label }
+  },
+  about{
+    eyebrow, title, titleHighlight, description,
+    steps[]{ icon, title, description },
+    bannerQuote, bannerHighlight, bannerSub
+  },
+  products{
+    eyebrow, title, description,
+    items[]{ name, tagline, description, features, badge, variant }
+  },
+  benefits{
+    eyebrow, title, description,
+    items[]{ icon, title, description }
+  },
+  heritage{
+    eyebrow, titleTop, titleHighlight, body1, body2,
+    milestones[]{ year, label },
+    cards[]{ value, label, sub }
+  },
+  contact{
+    eyebrow, title, description, email, manufacturer, fittingNote
+  }
+}`;
