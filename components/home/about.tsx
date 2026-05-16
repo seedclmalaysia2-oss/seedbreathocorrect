@@ -5,11 +5,18 @@ import type { HomepageContent, HomepageStep } from "@/lib/homepage-content";
 import { Editable } from "@/components/home/editor/editable";
 import { useEditableList } from "@/components/home/editor/editor-context";
 import { ReorderControls } from "@/components/home/editor/reorder-controls";
+import { AddItemButton } from "@/components/home/editor/add-item-button";
 
 const STEP_ICON: Record<HomepageStep["icon"], typeof Moon> = {
   moon: Moon,
   eye: Eye,
   sun: Sun,
+};
+
+const NEW_STEP: HomepageStep = {
+  icon: "moon",
+  title: "New step",
+  description: "Describe this step.",
 };
 
 export function HomeAbout({ about }: { about: HomepageContent["about"] }) {
@@ -58,6 +65,7 @@ export function HomeAbout({ about }: { about: HomepageContent["about"] }) {
               </div>
             );
           })}
+          <AddItemButton path="about.steps" item={NEW_STEP} label="Add step" />
         </div>
 
         <div className="navy-gradient rounded-2xl p-10 text-center text-white">

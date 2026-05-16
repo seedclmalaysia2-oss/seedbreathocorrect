@@ -6,6 +6,16 @@ import type { HomepageContent, HomepageProduct } from "@/lib/homepage-content";
 import { Editable } from "@/components/home/editor/editable";
 import { useEditableList } from "@/components/home/editor/editor-context";
 import { ReorderControls } from "@/components/home/editor/reorder-controls";
+import { AddItemButton } from "@/components/home/editor/add-item-button";
+
+const NEW_PRODUCT: HomepageProduct = {
+  name: "New Lens",
+  tagline: "Product tagline",
+  description: "Describe this product.",
+  features: ["Key feature"],
+  badge: "New",
+  variant: "navy",
+};
 
 export function HomeProducts({ products }: { products: HomepageContent["products"] }) {
   const items = useEditableList<HomepageProduct>("products.items", products.items);
@@ -95,6 +105,12 @@ export function HomeProducts({ products }: { products: HomepageContent["products
               </div>
             </article>
           ))}
+          <AddItemButton
+            path="products.items"
+            item={NEW_PRODUCT}
+            label="Add product"
+            className="min-h-[260px] p-6"
+          />
         </div>
       </div>
     </section>

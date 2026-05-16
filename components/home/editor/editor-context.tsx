@@ -20,6 +20,8 @@ type EditorContextValue = {
   updateField: (path: string, value: string) => void;
   getList: (path: string) => unknown[];
   moveItem: (path: string, index: number, direction: "up" | "down") => void;
+  addItem: (path: string, item: unknown) => void;
+  removeItem: (path: string, index: number) => void;
   changedCount: number;
   saving: boolean;
   save: () => void;
@@ -93,10 +95,32 @@ export function EditorProvider({
         [next[index], next[target]] = [next[target], next[index]];
         return setPath(d, path, next);
       });
-      setChangedPaths((prev) => new Set(prev).add(`order:${path}`));
+      setChangedPaths((prev) => new Set(prev).add(`list:${path}`));
     },
     [],
   );
+
+  const addItem = useCallback((path: string, item: unknown) => {
+    setDraft((d) => {
+      const arr = getPath(d, path);
+      if (!Array.isArray(arr)) return d;
+      return setPath(d, path, [...arr, item]);
+    });
+    setChangedPaths((prev) => new Set(prev).add(`list:${path}`));
+  }, []);
+
+  const removeItem = useCallback((path: string, index: number) => {
+    setDraft((d) => {
+      const arr = getPath(d, path);
+      if (!Array.isArray(arr)) return d;
+      return setPath(
+        d,
+        path,
+        arr.filter((_, i) => i !== index),
+      );
+    });
+    setChangedPaths((prev) => new Set(prev).add(`list:${path}`));
+  }, []);
 
   const toggleEditMode = useCallback(() => setEditMode((v) => !v), []);
 
@@ -127,6 +151,8 @@ export function EditorProvider({
       updateField,
       getList,
       moveItem,
+      addItem,
+      removeItem,
       changedCount: changedPaths.size,
       saving,
       save,
@@ -139,6 +165,8 @@ export function EditorProvider({
       updateField,
       getList,
       moveItem,
+      addItem,
+      removeItem,
       changedPaths,
       saving,
       save,

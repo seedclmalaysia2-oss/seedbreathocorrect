@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import type { HomepageContent } from "@/lib/homepage-content";
+import type { HomepageContent, HomepageStat } from "@/lib/homepage-content";
 import { Editable } from "@/components/home/editor/editable";
 import { useEditableList } from "@/components/home/editor/editor-context";
 import { ReorderControls } from "@/components/home/editor/reorder-controls";
+import { AddItemButton } from "@/components/home/editor/add-item-button";
+
+const NEW_STAT: HomepageStat = { value: "00", label: "New stat" };
 
 export function HomeHero({ hero }: { hero: HomepageContent["hero"] }) {
   const stats = useEditableList("hero.stats", hero.stats);
@@ -86,6 +89,13 @@ export function HomeHero({ hero }: { hero: HomepageContent["hero"] }) {
               </div>
             </div>
           ))}
+          <AddItemButton
+            path="hero.stats"
+            item={NEW_STAT}
+            label="Add stat"
+            tone="dark"
+            className="min-h-[64px] px-6"
+          />
         </div>
       </div>
 

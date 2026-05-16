@@ -1,10 +1,16 @@
 "use client";
 
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  Trash2,
+} from "lucide-react";
 import { useEditor } from "./editor-context";
 
-// Move-earlier / move-later controls for a single item in a reorderable
-// list. Renders nothing unless the editor is in edit mode.
+// Move-earlier / move-later / delete controls for a single item in an
+// editable list. Renders nothing unless the editor is in edit mode.
 export function ReorderControls({
   path,
   index,
@@ -57,6 +63,21 @@ export function ReorderControls({
         className="flex size-7 items-center justify-center text-white/85 transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-25"
       >
         <Next size={15} />
+      </button>
+      <span aria-hidden className="my-1 w-px bg-white/20" />
+      <button
+        type="button"
+        title="Remove item"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (window.confirm("Remove this item? You can still Discard before saving.")) {
+            ctx.removeItem(path, index);
+          }
+        }}
+        className="flex size-7 items-center justify-center text-white/85 transition-colors hover:bg-red-500/85 hover:text-white"
+      >
+        <Trash2 size={13} />
       </button>
     </div>
   );

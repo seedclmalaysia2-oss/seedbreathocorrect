@@ -5,6 +5,7 @@ import type { HomepageBenefit, HomepageContent } from "@/lib/homepage-content";
 import { Editable } from "@/components/home/editor/editable";
 import { useEditableList } from "@/components/home/editor/editor-context";
 import { ReorderControls } from "@/components/home/editor/reorder-controls";
+import { AddItemButton } from "@/components/home/editor/add-item-button";
 
 const BENEFIT_ICON: Record<HomepageBenefit["icon"], typeof Shield> = {
   shield: Shield,
@@ -13,6 +14,12 @@ const BENEFIT_ICON: Record<HomepageBenefit["icon"], typeof Shield> = {
   activity: Activity,
   users: Users,
   award: Award,
+};
+
+const NEW_BENEFIT: HomepageBenefit = {
+  icon: "shield",
+  title: "New benefit",
+  description: "Describe this benefit.",
 };
 
 export function HomeBenefits({ benefits }: { benefits: HomepageContent["benefits"] }) {
@@ -63,6 +70,13 @@ export function HomeBenefits({ benefits }: { benefits: HomepageContent["benefits
               </div>
             );
           })}
+          <AddItemButton
+            path="benefits.items"
+            item={NEW_BENEFIT}
+            label="Add benefit"
+            tone="dark"
+            className="min-h-[160px] p-7"
+          />
         </div>
       </div>
     </section>

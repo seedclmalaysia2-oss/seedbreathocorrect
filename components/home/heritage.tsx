@@ -8,6 +8,14 @@ import type {
 import { Editable } from "@/components/home/editor/editable";
 import { useEditableList } from "@/components/home/editor/editor-context";
 import { ReorderControls } from "@/components/home/editor/reorder-controls";
+import { AddItemButton } from "@/components/home/editor/add-item-button";
+
+const NEW_MILESTONE: HomepageMilestone = { year: "Year", label: "New milestone" };
+const NEW_CARD: HomepageHeritageCard = {
+  value: "00",
+  label: "New card",
+  sub: "Subtext",
+};
 
 export function HomeHeritage({ heritage }: { heritage: HomepageContent["heritage"] }) {
   const milestones = useEditableList<HomepageMilestone>(
@@ -59,6 +67,12 @@ export function HomeHeritage({ heritage }: { heritage: HomepageContent["heritage
                   </span>
                 </div>
               ))}
+              <AddItemButton
+                path="heritage.milestones"
+                item={NEW_MILESTONE}
+                label="Add milestone"
+                className="min-h-[48px] px-4 py-2"
+              />
             </div>
           </div>
 
@@ -86,6 +100,12 @@ export function HomeHeritage({ heritage }: { heritage: HomepageContent["heritage
                 </div>
               </div>
             ))}
+            <AddItemButton
+              path="heritage.cards"
+              item={NEW_CARD}
+              label="Add card"
+              className="min-h-[120px] p-6"
+            />
           </div>
         </div>
       </div>
