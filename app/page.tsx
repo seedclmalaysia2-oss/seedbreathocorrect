@@ -4,6 +4,8 @@ import { HomeProducts } from "@/components/home/products";
 import { HomeBenefits } from "@/components/home/benefits";
 import { HomeHeritage } from "@/components/home/heritage";
 import { HomeContact } from "@/components/home/contact";
+import { EditorProvider } from "@/components/home/editor/editor-context";
+import { EditorToolbar } from "@/components/home/editor/editor-toolbar";
 import { HOMEPAGE_FALLBACK, type HomepageContent } from "@/lib/homepage-content";
 import { homepageQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -28,7 +30,7 @@ export default async function HomePage() {
     contact: content?.contact ?? HOMEPAGE_FALLBACK.contact,
   };
 
-  return (
+  const sections = (
     <>
       <HomeHero hero={safe.hero} />
       <HomeAbout about={safe.about} />
@@ -37,5 +39,18 @@ export default async function HomePage() {
       <HomeHeritage heritage={safe.heritage} />
       <HomeContact contact={safe.contact} />
     </>
+  );
+
+  // The inline editor only exists in local development. Production
+  // renders the plain sections with no editor provider or toolbar.
+  if (process.env.NODE_ENV !== "development") {
+    return sections;
+  }
+
+  return (
+    <EditorProvider initialContent={safe}>
+      {sections}
+      <EditorToolbar />
+    </EditorProvider>
   );
 }

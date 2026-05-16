@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { submitContact } from "@/app/contact/actions";
 import type { HomepageContent } from "@/lib/homepage-content";
+import { Editable } from "@/components/home/editor/editable";
 
 type FormState = { name: string; email: string; phone: string; message: string };
 
@@ -56,11 +57,13 @@ export function HomeContact({ contact }: { contact: HomepageContent["contact"] }
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto mb-16 max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">
-            {contact.eyebrow}
+            <Editable path="contact.eyebrow" value={contact.eyebrow} />
           </span>
-          <h2 className="mt-4 text-4xl font-bold text-navy md:text-5xl">{contact.title}</h2>
+          <h2 className="mt-4 text-4xl font-bold text-navy md:text-5xl">
+            <Editable path="contact.title" value={contact.title} />
+          </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            {contact.description}
+            <Editable path="contact.description" value={contact.description} />
           </p>
         </div>
 
@@ -74,7 +77,7 @@ export function HomeContact({ contact }: { contact: HomepageContent["contact"] }
                     href={`mailto:${contact.email}`}
                     className="text-sm text-white transition-colors hover:text-gold"
                   >
-                    {contact.email}
+                    <Editable path="contact.email" value={contact.email} />
                   </a>
                 </InfoRow>
                 <InfoRow icon={Phone} label="Phone">
@@ -83,7 +86,9 @@ export function HomeContact({ contact }: { contact: HomepageContent["contact"] }
                   </p>
                 </InfoRow>
                 <InfoRow icon={MapPin} label="Manufacturer">
-                  <p className="text-sm text-white">{contact.manufacturer}</p>
+                  <p className="text-sm text-white">
+                    <Editable path="contact.manufacturer" value={contact.manufacturer} />
+                  </p>
                 </InfoRow>
               </div>
             </div>
@@ -91,7 +96,7 @@ export function HomeContact({ contact }: { contact: HomepageContent["contact"] }
             <div className="rounded-2xl border border-border bg-muted p-6">
               <h4 className="mb-2 font-bold text-navy">Clinic Fitting Required</h4>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                {contact.fittingNote}
+                <Editable path="contact.fittingNote" value={contact.fittingNote} />
               </p>
             </div>
           </aside>
